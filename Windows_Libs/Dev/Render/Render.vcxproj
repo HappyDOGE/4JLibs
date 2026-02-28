@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="4J_Render.h" />
+    <ClInclude Include="CompiledShaders.h" />
     <ClInclude Include="libpng\png.h" />
     <ClInclude Include="libpng\pngconf.h" />
     <ClInclude Include="libpng\pngdebug.h" />
@@ -164,14 +165,20 @@
     <ClInclude Include="libpng\pnglibconf.h" />
     <ClInclude Include="libpng\pngpriv.h" />
     <ClInclude Include="libpng\pngstruct.h" />
+    <ClInclude Include="PS_ForceLOD.h" />
+    <ClInclude Include="PS_ScreenClear.h" />
+    <ClInclude Include="PS_ScreenSpace.h" />
+    <ClInclude Include="PS_Standard.h" />
+    <ClInclude Include="PS_TextureProjection.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="VS_Compressed.h" />
+    <ClInclude Include="VS_PF3_TF2_CB4_NB4_XW1.h" />
+    <ClInclude Include="VS_PF3_TF2_CB4_NB4_XW1_Lighting.h" />
+    <ClInclude Include="VS_PF3_TF2_CB4_NB4_XW1_TexGen.h" />
+    <ClInclude Include="VS_ScreenClear.h" />
+    <ClInclude Include="VS_ScreenSpace.h" />
     <ClInclude Include="zlib\zconf.h" />
     <ClInclude Include="zlib\zlib.h" />
-    <ClInclude Include="RendererCBuff.h" />
-    <ClInclude Include="RendererCore.h" />
-    <ClInclude Include="RendererMatrix.h" />
-    <ClInclude Include="RendererState.h" />
-    <ClInclude Include="RendererTexture.h" />
-    <ClInclude Include="RendererVertex.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

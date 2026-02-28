@@ -21,24 +21,6 @@
     <ClInclude Include="4J_Render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RendererCBuff.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererCore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererMatrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererVertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="libpng\png.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -64,6 +46,45 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="zlib\zconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PS_Standard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PS_TextureProjection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PS_ForceLOD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VS_ScreenClear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VS_ScreenSpace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VS_PF3_TF2_CB4_NB4_XW1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VS_PF3_TF2_CB4_NB4_XW1_Lighting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VS_PF3_TF2_CB4_NB4_XW1_TexGen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VS_Compressed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CompiledShaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PS_ScreenClear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PS_ScreenSpace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
