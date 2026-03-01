@@ -43,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -169,6 +169,9 @@
     <ClInclude Include="PS_ScreenClear.h" />
     <ClInclude Include="PS_ScreenSpace.h" />
     <ClInclude Include="PS_Standard.h" />
+    <ClInclude Include="PS_Standard2.h" />
+    <ClInclude Include="PS_Standard3.h" />
+    <ClInclude Include="PS_Standard4.h" />
     <ClInclude Include="PS_TextureProjection.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="VS_Compressed.h" />

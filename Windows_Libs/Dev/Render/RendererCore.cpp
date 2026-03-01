@@ -57,7 +57,7 @@ _RTL_CRITICAL_SECTION Renderer::totalAllocCS = {0};
 Renderer::Context::Context(ID3D11Device *device,
                            ID3D11DeviceContext *deviceContext)
     : m_pDeviceContext(deviceContext), userAnnotation(nullptr),
-      contextStateFlags(0), matrixModeType(0), boundTextureIndex(0),
+      contextStateFlags(0), matrixModeType(0),
       faceCullEnabled(1), depthTestEnabled(1), alphaTestEnabled(0),
       alphaReference(1.0f), depthWriteEnabled(1), fogEnabled(0),
       fogNearDistance(0.0f), fogFarDistance(0.0f), fogDensity(0.0f),
@@ -643,6 +643,15 @@ void Renderer::SetupShaders() {
   m_pDevice->CreatePixelShader(
       PS_Standard_Data, sizeof(PS_Standard_Data), nullptr,
       &pixelShaderTable[C4JRender::PIXEL_SHADER_TYPE_STANDARD]);
+  m_pDevice->CreatePixelShader(
+      PS_Standard2_Data, sizeof(PS_Standard2_Data), nullptr,
+      &pixelShaderTable[C4JRender::PIXEL_SHADER_TYPE_STANDARD2]);
+  m_pDevice->CreatePixelShader(
+      PS_Standard3_Data, sizeof(PS_Standard3_Data), nullptr,
+      &pixelShaderTable[C4JRender::PIXEL_SHADER_TYPE_STANDARD3]);
+  m_pDevice->CreatePixelShader(
+      PS_Standard4_Data, sizeof(PS_Standard4_Data), nullptr,
+      &pixelShaderTable[C4JRender::PIXEL_SHADER_TYPE_STANDARD4]);
   m_pDevice->CreatePixelShader(
       PS_TextureProjection_Data, sizeof(PS_TextureProjection_Data), nullptr,
       &pixelShaderTable[C4JRender::PIXEL_SHADER_TYPE_PROJECTION]);

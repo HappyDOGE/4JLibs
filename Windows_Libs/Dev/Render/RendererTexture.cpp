@@ -27,17 +27,17 @@ int Renderer::TextureCreate() {
 }
 
 void Renderer::TextureSetTextureLevels(int levels) {
-  const int boundTextureIndex = this->getContext().boundTextureIndex;
+  const int boundTextureIndex = this->getContext().boundTextureIndex[0];
   m_textures[boundTextureIndex].mipLevels = levels;
 }
 
 int Renderer::TextureGetTextureLevels() {
-  const int boundTextureIndex = this->getContext().boundTextureIndex;
+  const int boundTextureIndex = this->getContext().boundTextureIndex[0];
   return m_textures[boundTextureIndex].mipLevels;
 }
 
 void Renderer::TextureSetParam(int param, int value) {
-  Texture &texture = m_textures[this->getContext().boundTextureIndex];
+  Texture &texture = m_textures[this->getContext().boundTextureIndex[0]];
 
   switch (param) {
   case GL_TEXTURE_MIN_FILTER:
@@ -77,7 +77,7 @@ void Renderer::TextureDynamicUpdateEnd() {}
 void Renderer::TextureData(int width, int height, void *data, int level,
                            C4JRender::eTextureFormat format) {
   Renderer::Context &context = this->getContext();
-  Texture &texture = m_textures[context.boundTextureIndex];
+  Texture &texture = m_textures[context.boundTextureIndex[0]];
   texture.textureFormat = format;
 
   if (level == 0) {
@@ -104,7 +104,7 @@ void Renderer::TextureData(int width, int height, void *data, int level,
 void Renderer::TextureDataUpdate(int xoffset, int yoffset, int width,
                                  int height, void *data, int level) {
   Renderer::Context &context = this->getContext();
-  Texture &texture = m_textures[context.boundTextureIndex];
+  Texture &texture = m_textures[context.boundTextureIndex[0]];
 
   D3D11_BOX box = {};
   box.left = xoffset;
@@ -148,6 +148,10 @@ ID3D11ShaderResourceView *Renderer::TextureGetTexture(int idx) {
 }
 
 void Renderer::TextureBind(int idx) {
+  TextureBind(0, idx);
+}
+
+void Renderer::TextureBind(int layer, int idx) {
   int textureIndex = idx;
   if (textureIndex == -1) {
     textureIndex = defaultTextureIndex;
@@ -156,13 +160,13 @@ void Renderer::TextureBind(int idx) {
   Renderer::Context &context = this->getContext();
 
   if (context.commandBuffer && context.commandBuffer->isActive) {
-    context.commandBuffer->BindTexture(textureIndex);
+    context.commandBuffer->BindTexture(layer, textureIndex);
   }
 
-  context.boundTextureIndex = textureIndex;
+  context.boundTextureIndex[layer] = textureIndex;
   ID3D11ShaderResourceView *const view = m_textures[textureIndex].view;
-  context.m_pDeviceContext->PSSetShaderResources(0, 1, &view);
-  this->UpdateTextureState(false);
+  context.m_pDeviceContext->PSSetShaderResources(layer, 1, &view);
+  this->UpdateTextureState(layer, false);
 }
 
 void Renderer::TextureBindVertex(int idx) {
@@ -172,21 +176,21 @@ void Renderer::TextureBindVertex(int idx) {
   }
 
   Renderer::Context &context = this->getContext();
-  context.boundTextureIndex = textureIndex;
+  context.boundTextureIndex[0] = textureIndex;
 
   ID3D11ShaderResourceView *const view = m_textures[textureIndex].view;
   context.m_pDeviceContext->VSSetShaderResources(0, 1, &view);
-  this->UpdateTextureState(true);
+  this->UpdateTextureState(0, true);
 }
 
-void Renderer::UpdateTextureState(bool vertexSampler) {
+void Renderer::UpdateTextureState(int layer, bool vertexSampler) {
   Renderer::Context &context = this->getContext();
-  ID3D11SamplerState *sampler = this->GetManagedSamplerState();
+  ID3D11SamplerState *sampler = this->GetManagedSamplerState(layer);
 
-  if (vertexSampler) {
+  if (vertexSampler) { // dgtodo layer here? unused on vertex shaders
     context.m_pDeviceContext->VSSetSamplers(0, 1, &sampler);
   } else {
-    context.m_pDeviceContext->PSSetSamplers(0, 1, &sampler);
+    context.m_pDeviceContext->PSSetSamplers(layer, 1, &sampler);
   }
 }
 

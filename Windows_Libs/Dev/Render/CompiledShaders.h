@@ -13,4 +13,7 @@
 #include "PS_ScreenClear.h"
 #include "PS_ScreenSpace.h"
 #include "PS_Standard.h"
+#include "PS_Standard2.h"
+#include "PS_Standard3.h"
+#include "PS_Standard4.h"
 #include "PS_TextureProjection.h"

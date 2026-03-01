@@ -70,10 +70,10 @@ ID3D11RasterizerState* Renderer::GetManagedRasterizerState()
 	return state;
 }
 
-ID3D11SamplerState* Renderer::GetManagedSamplerState()
+ID3D11SamplerState* Renderer::GetManagedSamplerState(int layer)
 {
 	Context& context = this->getContext();
-	const int key = m_textures[context.boundTextureIndex].samplerParams;
+	const int key = m_textures[context.boundTextureIndex[layer]].samplerParams;
 
 	auto it = managedSamplerStates.find(key);
 	if (it != managedSamplerStates.end())

@@ -57,6 +57,7 @@ public:
 	int TextureCreate();
 	void TextureFree(int idx);
 	void TextureBind(int idx);
+	void TextureBind(int layer, int idx);
 	void TextureBindVertex(int idx);
 	void TextureSetTextureLevels(int levels);
 	int TextureGetTextureLevels();
@@ -117,12 +118,12 @@ private:
 	void UpdateLightingState();
 	void UpdateViewportState();
 	void UpdateFogState();
-	void UpdateTextureState(bool vertexSampler);
+	void UpdateTextureState(int layer, bool vertexSampler);
 	void MultWithStack(DirectX::XMMATRIX matrix);
 	ID3D11DepthStencilState* GetManagedDepthStencilState();
 	ID3D11BlendState* GetManagedBlendState();
 	ID3D11RasterizerState* GetManagedRasterizerState();
-	ID3D11SamplerState* GetManagedSamplerState();
+	ID3D11SamplerState* GetManagedSamplerState(int layer);
 	void DeleteInternalBuffer(int index);
 	Renderer::Context& getContext();
 	static D3D11_PRIMITIVE_TOPOLOGY* m_Topologies;
@@ -177,7 +178,7 @@ public:
 		bool IsBusy();
 		void AddMatrix(const float* matrix);
 		void AddVertices(unsigned int stride, unsigned int count, void* dataIn, Renderer::Context& context);
-		void BindTexture(int idx);
+		void BindTexture(int layer, int idx);
 		void SetColor(float r, float g, float b, float a);
 		void SetDepthFunc(int func);
 		void SetDepthMask(bool enable);
@@ -216,6 +217,7 @@ public:
 
 				struct
 				{
+					unsigned int m_texture_layer;
 					unsigned int m_texture_index;
 				} bind_texture;
 
@@ -322,7 +324,7 @@ public:
 		bool matrixDirty[4];
 		DWORD matrixStackDepth[4];
 		DWORD matrixModeType;
-		DWORD boundTextureIndex;
+		DWORD boundTextureIndex[4]; // 4 bound texture layers
 		BYTE faceCullEnabled;
 		BYTE depthTestEnabled;
 		BYTE alphaTestEnabled;

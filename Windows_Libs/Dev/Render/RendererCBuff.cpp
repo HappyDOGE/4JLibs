@@ -113,10 +113,11 @@ void Renderer::CommandBuffer::AddVertices(unsigned int stride, unsigned int coun
 	m_commands.push_back(command);
 }
 
-void Renderer::CommandBuffer::BindTexture(int idx)
+void Renderer::CommandBuffer::BindTexture(int layer, int idx)
 {
 	Command command = {};
 	command.m_command_type = COMMAND_BIND_TEXTURE;
+	command.bind_texture.m_texture_layer = static_cast<unsigned int>(layer);
 	command.bind_texture.m_texture_index = idx;
 	m_commands.push_back(command);
 }
@@ -349,10 +350,14 @@ void Renderer::CommandBuffer::Render(C4JRender::eVertexType vertexType, Renderer
 		}
 		case COMMAND_BIND_TEXTURE:
 		{
-			context.boundTextureIndex = command.bind_texture.m_texture_index;
-			ID3D11ShaderResourceView* view = InternalRenderManager.m_textures[context.boundTextureIndex].view;
-			context.m_pDeviceContext->PSSetShaderResources(0, 1, &view);
-			InternalRenderManager.UpdateTextureState(false);
+			const unsigned int layer = command.bind_texture.m_texture_layer;
+			if (layer < 4u)
+			{
+				context.boundTextureIndex[layer] = command.bind_texture.m_texture_index;
+				ID3D11ShaderResourceView* view = InternalRenderManager.m_textures[context.boundTextureIndex[layer]].view;
+				context.m_pDeviceContext->PSSetShaderResources(layer, 1, &view);
+				InternalRenderManager.UpdateTextureState(static_cast<int>(layer), false);
+			}
 			break;
 		}
 		case COMMAND_SET_COLOR:
